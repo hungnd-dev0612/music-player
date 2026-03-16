@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- button controller  -->
+      <header class="header">
+        <h2 class="song-title">
+          Now Playing:
+          <span id="song-title">Song name</span>
+        </h2>
+        <img src="avatar.jpg" alt="avatar-song" class="avatar" />
+      </header>
+      <!-- button controller  -->
+      <main class="song-controller">
+        <article class="song-controller" name="song-controller">
+          <audio id="player" controls></audio>
+
+          <button id="prev-btn"><i data-lucide="skip-back">skip</i></button>
+          <button id="play-pause-btn"><i data-lucide="play">play</i></button>
+          <button id="random-btn"><i data-lucide="shuffle">shuffle</i></button>
+          <button id="next-btn"><i data-lucide="skipForward"></i></button>
+        </article>
+      </main>
+      <!-- Footer, list song -->
+      <footer class="footer">
+        <ul class="playlist">
+          <li>Song 1 - Singer</li>
+          <li>Song 2 - Singer</li>
+          <li>Song 3 - Singer</li>
+        </ul>
+      </footer>
+    </div>
+    <!-- bottom for android -->
+
+    <nav class="bottom-bar">
+      <button>Home</button>
+      <button>Search</button>SSSSSSS <button>Library</button>S
+      <button>Settings</button>
+    </nav>
+  </body>
+<script type="module" src="script.js"></script>
+</html>
