@@ -1,6 +1,7 @@
 const path = require("node:path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -9,8 +10,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    publicPath:
-      process.env.NODE_ENV === "production" ? "./" : "/",
+    publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
   },
 
   plugins: [
@@ -20,13 +20,16 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: "public", to: "" }],
     }),
+    new MiniCssExtractPlugin({
+      filename: "style.css",
+    }),
   ],
 
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
