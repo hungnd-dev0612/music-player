@@ -14,7 +14,7 @@
     "webpack-dev-server": "^5.2.3"
   },
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "set NODE_ENV=development&& webpack serve --mode development",
     "build": "set NODE_ENV=production&& webpack --mode production",
     "deploy": "npm run build && gh-pages -d dist --no-history"
   }
