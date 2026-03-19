@@ -89,3 +89,28 @@ body {
   width: 8px;
   height: 100px;
 } */
+
+
+/*------------thumbnail-----------*/
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+
+  animation: spin 10s linear infinite;
+}
+.avatar.paused {
+  animation-play-state: paused;
+}
+
+/* animation quay */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+

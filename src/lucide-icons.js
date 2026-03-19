@@ -8,6 +8,7 @@ import {
   Volume1,
 } from "lucide";
 export function initIcons() {
+
   createIcons({
     icons: {
       Pause,
