@@ -92,7 +92,7 @@ body {
 
 
 /*------------thumbnail-----------*/
-.avatar {
+.thumbnail {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -100,7 +100,7 @@ body {
 
   animation: spin 10s linear infinite;
 }
-.avatar.paused {
+.thumbnail.paused {
   animation-play-state: paused;
 }
 
