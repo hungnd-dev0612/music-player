@@ -14,7 +14,9 @@ export function initControls() {
   let playPauseIcons = document.querySelector("#play-pause-btn");
   let duration = document.querySelector("#duration");
   let songTitle = document.querySelector("#song-title");
-
+  let volumeBar = document.querySelector("#volume-bar");
+  let progressBar = document.querySelector("#progress-bar");
+  let currentTimeEl = document.querySelector("#current-time");
   let currentIndex = 0;
 
   let isRepeat = false;
@@ -44,13 +46,11 @@ export function initControls() {
     },
   ];
 
-  function onLoadedMetaData() {
+  player.addEventListener("loadedmetadata", () => {
     console.log("loaded meta");
-    player.onloadedmetadata = (event) => {
-      console.log(event);
-    };
-  }
-
+    player.volume = 0.2;
+    duration.innerHTML = formatTime(player.duration);
+  });
   function onCanPlayThrough() {
     player.oncanplaythrough = () => {
       player.play();
@@ -70,26 +70,24 @@ export function initControls() {
       .map((song) => `<li>${song.title} - ${song.singer}</li>`)
       .join("");
     //duration song
-    player.onloadedmetadata = () => {
+    player.addEventListener("loadedmetadata", () => {
       duration.innerHTML = formatTime(player.duration);
       songTitle.innerHTML = infoSong.title;
       thumbnailSong.src = infoSong.avatar;
-    };
+    });
     console.log(thumbnailSong);
     console.log(infoSong);
-    
+
     return songName;
   }
 
   function loadSongAndPlay(song) {
     loadSongInfo(currentIndex);
-    onLoadedMetaData();
     onCanPlayThrough();
     return song;
   }
 
   function togglePlayPauseBtn() {
-    onLoadedMetaData();
     console.log("before play song");
     if (player.paused) {
       player
@@ -130,8 +128,8 @@ export function initControls() {
     }
     loadSongAndPlay(currentIndex);
   }
-  /*---------control volume and media duration---------*/
 
+  /*---------control volume and media duration---------*/
   player.addEventListener("ended", () => {
     if (isRepeat) {
       player.play();
@@ -139,6 +137,24 @@ export function initControls() {
       nextSongBtn();
     }
   });
+  volumeBar.addEventListener("input", () => {
+    player.volume = volumeBar.value;
+    console.log(player.volume);
+    console.log(player.progress);
+  });
+  /*---------update progress time song---------*/
+
+  player.addEventListener("timeupdate", () => {
+    const progress = (player.currentTime / player.duration) * 100;
+    progressBar.value = progress;
+    currentTimeEl.textContent = formatTime(player.currentTime);
+  });
+
+  progressBar.addEventListener("input", () => {
+    const seekTime = (progressBar.value / 100) * player.duration;
+    player.currentTime = seekTime;
+  });
+
   playBtn.addEventListener("click", togglePlayPauseBtn);
   nextBtn.addEventListener("click", nextSongBtn);
   prevBtn.addEventListener("click", prevSongBtn);

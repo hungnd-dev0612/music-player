@@ -8,7 +8,10 @@ body {
   align-items: center;
   /* background: #f0f0f0; */
 }
-
+h2 {
+  /* display: inline-block; */
+  font-size: 15px;
+}
 .dashboard {
   flex: 1; /* chiếm toàn bộ chiều cao trừ bottom bar */
   display: flex;
@@ -64,7 +67,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 .volume-control {
   display: flex;
@@ -89,16 +91,34 @@ body {
   width: 8px;
   height: 100px;
 } */
-
-
+#volume-bar {
+  opacity: 0;
+  visibility: hidden;
+  width: 0; /* Tùy chọn: giúp các nút khác sát lại nhau hơn khi ẩn */
+  transition: all 0.3s ease; /* Tạo hiệu ứng mượt mà khi hiện ra */
+}
+.volume-control.show-volume #volume-bar,
+.volume-control:hover #volume-bar {
+  opacity: 1;
+  visibility: visible;
+  width: 120px; /* Độ dài bạn muốn khi hiện ra */
+}
 /*------------thumbnail-----------*/
 .thumbnail {
-  width: 150px;
+  /* width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
 
+  animation: spin 10s linear infinite; */
+
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover; /* giữ tỉ lệ ảnh, không méo */
+  object-position: center; /* căn giữa ảnh */
   animation: spin 10s linear infinite;
+  /* margin-left: 50px; */
 }
 .thumbnail.paused {
   animation-play-state: paused;
@@ -113,4 +133,3 @@ body {
     transform: rotate(360deg);
   }
 }
-

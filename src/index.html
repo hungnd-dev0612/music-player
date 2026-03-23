@@ -13,13 +13,13 @@
         <img src="example" alt="thumbnail" class="thumbnail" />
       </header>
       <main class="song-controller">
-        <audio id="player" src="" controls>
+        <audio id="player" src="" >
         </audio>
         <!-- Progress bar -->
         <div class="song-progress">
           <span id="current-time">0:00</span>
-          <input type="range" id="progress-bar" value="0" max="100" />
-          <span id="duration">1:00</span>
+          <input type="range" id="progress-bar" value="0" min="0" max="100" />
+          <span id="duration">0:00</span>
         </div>
 
         <!-- button controller  -->
@@ -31,6 +31,7 @@
 
           <!-- Volume control -->
           <div class="volume-control">
+            
             <button id="mute-btn"><i data-lucide="volume-1"></i></button>
             <input
               type="range"
