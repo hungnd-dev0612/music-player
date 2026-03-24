@@ -6,7 +6,20 @@ body {
   /* để có bottom bar nằm dưới */
   justify-content: center;
   align-items: center;
-  /* background: #f0f0f0; */
+  min-height: 100vh;
+  /* Tạo một lớp nền mờ ảo */
+  background:
+    /* linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), */ 
+    url(/music-player/4b77edef3ec282463569.jpg)
+    no-repeat center center/cover;
+  /* backdrop-filter: blur(20px);  */
+  /* Hiệu ứng mờ đục xịn xò */
+  /* background-color: rgba(177, 12, 12, 0.233); */
+  /* background-blend-mode: overlay; */
+}
+.dashboard {
+  /* đổ bóng cho card và menu */
+  /* box-shadow: 0 50px 30px rgba(189, 16, 16, 0.918); */
 }
 h2 {
   /* display: inline-block; */
@@ -23,6 +36,8 @@ h2 {
   /* giống khung mobile */
   padding: 20px;
   box-sizing: border-box;
+  height: calc(100vh - 60px);
+  gap: 20px;
 }
 
 .song-controller article {
@@ -68,62 +83,190 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
 .volume-control {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 100px;
   /* margin-top: 15px; */
+  position: relative;
+}
+/*-------------------style button---------------*/
+.song-controller button {
+  background: white;
+  border: none;
+  /* Dùng kích thước cố định để nút luôn TRÒN */
+  width: 40px;
+  height: 40px;
+
+  /* Căn giữa icon hoàn hảo */
+  display: inline-flex; /* Hoặc flex */
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  /* QUAN TRỌNG: Bỏ padding */
+  padding: 0;
+
+  transition: all 0.2s ease;
+  color: #e60606; /* Màu mặc định cho icon */
 }
 
-/* .volume-control {
+.song-controller button:hover {
+  background-color: #e02a2a57;
+  transform: translateY(-1px);
+}
+
+.buttons-controller {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* Khoảng cách giữa các nút */
+  margin-top: 20px;
+}
+
+/* Phần volume control cần gọn lại để không chiếm chỗ */
+.volume-control {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 15px;
+  position: relative;
+  margin-left: auto; /* Đẩy cụm volume sang bên phải cùng */
 }
+/* --- TẠO ĐIỂM NHẤN CHO NÚT PLAY/PAUSE --- */
 
-.volume-control input[type="range"] {
-  width: 120px;
-}
-#volume-bar {
-  writing-mode: bt-lr;   
-  -webkit-appearance: slider-vertical; 
-  width: 8px;
-  height: 100px;
-} */
+/*-------------------volume bar---------------*/
 #volume-bar {
   opacity: 0;
   visibility: hidden;
-  width: 0; /* Tùy chọn: giúp các nút khác sát lại nhau hơn khi ẩn */
-  transition: all 0.3s ease; /* Tạo hiệu ứng mượt mà khi hiện ra */
+  transition: all 0.5s ease;
+  /* Cho trình duyệt Chrome, Edge, Safari */
+  writing-mode: vertical-lr;
+  direction: rtl;
+  height: 100px;
+  position: absolute;
+  bottom: 50%;
+  left: -50%;
+  width: 100px;
+  margin-bottom: 20px;
+  transform-origin: center center;
 }
+
 .volume-control.show-volume #volume-bar,
 .volume-control:hover #volume-bar {
   opacity: 1;
   visibility: visible;
-  width: 120px; /* Độ dài bạn muốn khi hiện ra */
+  width: 100px; /* length volume */
 }
+
 /*------------thumbnail-----------*/
 .thumbnail {
-  /* width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-
-  animation: spin 10s linear infinite; */
-
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover; /* giữ tỉ lệ ảnh, không méo */
   object-position: center; /* căn giữa ảnh */
   animation: spin 10s linear infinite;
-  /* margin-left: 50px; */
 }
 .thumbnail.paused {
   animation-play-state: paused;
 }
 
+/*------------list song-----------*/
+.playlist {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Khoảng cách giữa các thẻ bài hát */
+  padding: 0;
+}
+.song-item img {
+  width: 50px; /* Chiều ngang cố định */
+  height: 50px; /* Chiều dọc cố định (bằng width để tạo hình vuông) */
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 12px; /* Bo góc card */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  /* Đổ bóng nhẹ cho giống ảnh */
+  /* background: #833AB4; */
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 0.2) 0%,
+    rgba(253, 29, 29, 0.2) 50%,
+    rgba(252, 176, 69, 0.2) 100%
+  );
+  /* backdrop-filter: blur(100px) saturate(1000%); */
+  /* backdrop-filter: blur(10px); */
+}
+
+.song-body {
+  flex: 1; /* "Nở" ra chiếm hết phần không gian trống còn lại */
+  padding-left: 20px; /* Tạo khoảng cách với cái ảnh */
+  display: flex;
+  flex-direction: column; /* Tên bài trên, tác giả dưới */
+  justify-content: center;
+  overflow: hidden;
+}
+.song-body h3,
+.song-body p {
+  margin: 0; /* Xóa sạch khoảng cách thừa */
+  line-height: 1.4; /* Khoảng cách dòng vừa phải, dễ đọc */
+  color: rgb(247, 240, 240);
+}
+/*----------wrapping to card--------------*/
+
+.footer {
+  width: 100%;
+  /* nền tối mờ */
+  /* background: rgba(11,16,32,0.45);  */
+  /* backdrop-filter: blur(12px) saturate(200%);
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #F2F2F2;
+  box-shadow: 0 8px 30px rgba(11,16,32,0.6);
+  cursor: pointer; */
+
+  cursor: pointer;
+  background: rgba(11, 16, 32, 0.45); /* nền tối mờ */
+  backdrop-filter: blur(1px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* THẺ 1: Phần trên (Player) */
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0; /* Không cho phần này bị bóp méo khi danh sách quá dài */
+}
+.footer {
+  flex: 1; /* Chiếm nốt phần diện tích còn lại của dashboard */
+  min-height: 0; /* Quan trọng để cuộn được bên trong */
+  display: flex;
+  flex-direction: column;
+}
+.playlist {
+  flex: 1;
+  overflow-y: auto; /* Cuộn danh sách bên trong thẻ footer */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 /* animation quay */
 @keyframes spin {
   from {
