@@ -9,7 +9,8 @@ body {
   min-height: 100vh;
   /* Tạo một lớp nền mờ ảo */
   background:
-    /* linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), */ url("C:\Users\DangHung-PC\AppData\Local\Packages\Microsoft.BingWallpaper_8wekyb3d8bbwe\LocalState\images\$$Content$$\Space_27_OBGA.AdobeStock_530451110_Space.jpg")
+    /* linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), */ 
+    url("/public/background/Space_27_OBGA.AdobeStock_530451110_Space.jpg")
     no-repeat center center/cover;
   /* backdrop-filter: blur(20px);  */
   /* Hiệu ứng mờ đục xịn xò */
