@@ -23,6 +23,7 @@ export function initControls() {
   let songName = document.querySelector("#song-title");
   let thumbnailSong = document.querySelector(".thumbnail");
   let listSong = document.querySelector(".playlist");
+  let muteBtn = document.querySelector("#mute-btn");
   console.log("controller");
 
   const playlist = [
@@ -66,9 +67,23 @@ export function initControls() {
     createIcons({ icons });
     console.log(playPauseIcons);
     player.src = infoSong.url;
-    listSong.innerHTML = playlist
-      .map((song) => `<li>${song.title} - ${song.singer}</li>`)
-      .join("");
+listSong.innerHTML = playlist
+  .map((song, index) => 
+    `
+    <li class="song-item ${index === 0 ? 'active' : ''}">
+      <div class="song-thumb">
+        <img src="${song.avatar}" >
+      </div>
+      <div class="song-body">
+        <h3 class="title">${song.title}</h3>
+        <p class="author">${song.singer}</p>
+      </div>
+      <div class="song-option">
+        <i data-lucide="more-horizontal"></i>
+      </div>
+    </li>
+  `)
+  .join("");
     //duration song
     player.addEventListener("loadedmetadata", () => {
       duration.innerHTML = formatTime(player.duration);
@@ -155,6 +170,22 @@ export function initControls() {
     player.currentTime = seekTime;
   });
 
+  muteBtn.addEventListener("click", (e) => {
+    // Ngăn sự kiện click bị trôi ra ngoài
+    e.stopPropagation();
+    // Thêm hoặc xóa class 'active' để hiện/ẩn thanh volume
+    volumeBar.classList.toggle("active");
+  });
+  muteBtn.addEventListener("click", (e) => {
+
+  });
+  // Khi click ra bất kỳ đâu ngoài vùng volume, ẩn thanh volume đi cho gọn
+  document.addEventListener("click", (e) => {
+    if (!volumeBar.contains(e.target)) {
+      volumeBar.classList.remove("active");
+    }
+  });
+  document.addEventListener("click", (e) => {});
   playBtn.addEventListener("click", togglePlayPauseBtn);
   nextBtn.addEventListener("click", nextSongBtn);
   prevBtn.addEventListener("click", prevSongBtn);
