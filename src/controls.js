@@ -4,7 +4,11 @@ function formatTime(seconds) {
   const secs = Math.floor(seconds % 60);
   return `${minutes}:${secs.toString().padStart(2, "0")}`;
 }
-
+function getRandomBg() {
+  const total = 10; // tổng số ảnh bạn có
+  const randomIndex = Math.floor(Math.random() * total) + 1;
+  return `/background/bg${randomIndex}.jpg`;
+}
 export function initControls() {
   let player = document.querySelector("#player");
   const playBtn = document.querySelector("#play-pause-btn");
@@ -26,7 +30,12 @@ export function initControls() {
   let muteBtn = document.querySelector("#mute-btn");
   // let songTitle = document.getElementById('song-title');
   console.log("controller");
-
+  const images = require.context(
+    "./background", // relative từ file hiện tại
+    false,
+    /\.(png|jpe?g|webp)$/,
+  );
+  const backgrounds = images.keys().map(images);
   const playlist = [
     {
       title: "Bad Habits",
@@ -151,6 +160,7 @@ export function initControls() {
       currentIndex++;
     }
     loadSongAndPlay(currentIndex);
+    changeBackgroundRandom();
   }
   function prevSongBtn() {
     if (currentIndex == 0) {
@@ -163,6 +173,15 @@ export function initControls() {
       currentIndex--;
     }
     loadSongAndPlay(currentIndex);
+  }
+  // -------------------change background------------------
+  let index = 0;
+  function changeBackgroundRandom() {
+    console.log(backgrounds);
+    index++;
+    if (index >= backgrounds.length) index = 0;
+    const bg = backgrounds[index];
+    document.body.style.backgroundImage = `url('${bg}')`;
   }
 
   /*---------control volume and media duration---------*/
@@ -219,4 +238,5 @@ export function initControls() {
   nextBtn.addEventListener("click", nextSongBtn);
   prevBtn.addEventListener("click", prevSongBtn);
   loadSongInfo(0);
+  changeBackgroundRandom();
 }

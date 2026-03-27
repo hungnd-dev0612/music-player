@@ -8,9 +8,9 @@ body {
   align-items: center;
   min-height: 100vh;
   /* Tạo một lớp nền mờ ảo */
-  background:
-    /* linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), */ url("/public/background/Space_27_OBGA.AdobeStock_530451110_Space.jpg")
-    no-repeat center center/cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .header {
   display: flex;
@@ -307,8 +307,6 @@ h2 {
   animation: rainbow-bg 3s linear infinite;
   /* Thêm đổ bóng phát sáng nhẹ */
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0);
-
-  
 }
 
 @keyframes rainbow-bg {
