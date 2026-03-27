@@ -24,25 +24,44 @@ export function initControls() {
   let thumbnailSong = document.querySelector(".thumbnail");
   let listSong = document.querySelector(".playlist");
   let muteBtn = document.querySelector("#mute-btn");
+  // let songTitle = document.getElementById('song-title');
   console.log("controller");
 
   const playlist = [
     {
       title: "Bad Habits",
       url: "song/Bad-Habits.mp3",
-      avatar: "avatar/bad-habit-thumbnail.jpeg",
+      avatar: "avatar/ni5.jpg",
       singer: "ed sheeran",
     },
     {
       title: "Die With A Smile",
       url: "song/Die-With-A-Smile.mp3",
-      avatar: "example.jpg",
+      avatar: "avatar/ni2.jpg",
       singer: "bruno mars",
     },
     {
       title: "Memory",
       url: "song/memory_luutamvu-original.mp3",
-      avatar: "example.jpg",
+      avatar: "avatar/ni3.jpg",
+      singer: "lưu tâm vũ",
+    },
+    {
+      title: "Memory",
+      url: "song/memory_luutamvu-original.mp3",
+      avatar: "avatar/ni4.jpg",
+      singer: "lưu tâm vũ",
+    },
+    {
+      title: "Memory",
+      url: "song/memory_luutamvu-original.mp3",
+      avatar: "avatar/ni5.jpg",
+      singer: "lưu tâm vũ",
+    },
+    {
+      title: "Memory",
+      url: "song/memory_luutamvu-original.mp3",
+      avatar: "avatar/ni6.jpg",
       singer: "lưu tâm vũ",
     },
   ];
@@ -67,10 +86,11 @@ export function initControls() {
     createIcons({ icons });
     console.log(playPauseIcons);
     player.src = infoSong.url;
-listSong.innerHTML = playlist
-  .map((song, index) => 
-    `
-    <li class="song-item ${index === 0 ? 'active' : ''}">
+    listSong.innerHTML = playlist
+      .map(
+        (song, index) =>
+          `
+    <li class="song-item ${index === 0 ? "active" : ""}">
       <div class="song-thumb">
         <img src="${song.avatar}" >
       </div>
@@ -82,12 +102,13 @@ listSong.innerHTML = playlist
         <i data-lucide="more-horizontal"></i>
       </div>
     </li>
-  `)
-  .join("");
+  `,
+      )
+      .join("");
     //duration song
     player.addEventListener("loadedmetadata", () => {
       duration.innerHTML = formatTime(player.duration);
-      songTitle.innerHTML = infoSong.title;
+      songTitle.innerHTML = `Now playing: ${infoSong.title}`;
       thumbnailSong.src = infoSong.avatar;
     });
     console.log(thumbnailSong);
@@ -110,14 +131,14 @@ listSong.innerHTML = playlist
         .then(() => {
           console.log("song playing");
           playPauseIcons.innerHTML = '<i data-lucide="pause"></i>';
-          thumbnailSong.classList.remove("paused");
+          thumbnailSong.classList.add("playing");
           createIcons({ icons });
         })
         .catch((err) => console.error("Play error:", err));
     } else {
       player.pause();
       playPauseIcons.innerHTML = '<i data-lucide="play"></i>';
-      thumbnailSong.classList.add("paused");
+      thumbnailSong.classList.remove("playing");
       createIcons({ icons });
     }
   }
@@ -176,15 +197,23 @@ listSong.innerHTML = playlist
     // Thêm hoặc xóa class 'active' để hiện/ẩn thanh volume
     volumeBar.classList.toggle("active");
   });
-  muteBtn.addEventListener("click", (e) => {
-
-  });
+  muteBtn.addEventListener("click", (e) => {});
   // Khi click ra bất kỳ đâu ngoài vùng volume, ẩn thanh volume đi cho gọn
   document.addEventListener("click", (e) => {
     if (!volumeBar.contains(e.target)) {
       volumeBar.classList.remove("active");
     }
   });
+
+  // song title effect
+  player.onplay = () => {
+    songTitle.classList.add("playing-effect");
+  };
+
+  player.onpause = () => {
+    songTitle.classList.remove("playing-effect");
+  };
+
   document.addEventListener("click", (e) => {});
   playBtn.addEventListener("click", togglePlayPauseBtn);
   nextBtn.addEventListener("click", nextSongBtn);
