@@ -21,6 +21,7 @@ export function initControls() {
   let volumeBar = document.querySelector("#volume-bar");
   let progressBar = document.querySelector("#progress-bar");
   let currentTimeEl = document.querySelector("#current-time");
+  // let songItemBtn = document.querySelector("song-item")
   let currentIndex = 0;
 
   let isRepeat = false;
@@ -28,7 +29,6 @@ export function initControls() {
   let thumbnailSong = document.querySelector(".thumbnail");
   let listSong = document.querySelector(".playlist");
   let muteBtn = document.querySelector("#mute-btn");
-  // let songTitle = document.getElementById('song-title');
   console.log("controller");
   const images = require.context(
     "./background", // relative từ file hiện tại
@@ -161,6 +161,7 @@ export function initControls() {
     }
     loadSongAndPlay(currentIndex);
     changeBackgroundRandom();
+    // songItem();
   }
   function prevSongBtn() {
     if (currentIndex == 0) {
@@ -173,6 +174,10 @@ export function initControls() {
       currentIndex--;
     }
     loadSongAndPlay(currentIndex);
+  }
+
+  function songItem(){
+    console.dir(songItemBtn);
   }
   // -------------------change background------------------
   let index = 0;
@@ -237,6 +242,7 @@ export function initControls() {
   playBtn.addEventListener("click", togglePlayPauseBtn);
   nextBtn.addEventListener("click", nextSongBtn);
   prevBtn.addEventListener("click", prevSongBtn);
+  // songItemBtn.addEventListener("click",console.log("hello"))
   loadSongInfo(0);
   changeBackgroundRandom();
 }

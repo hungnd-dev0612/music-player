@@ -400,3 +400,46 @@ h2 {
     transform: rotate(360deg);
   }
 }
+/* Media Query cho Mobile */
+@media (max-width: 480px) {
+  body {
+    padding: 0;
+    justify-content: flex-start; /* Đẩy nội dung lên trên để tránh bị che bởi bàn phím/bottom bar */
+  }
+
+  .dashboard {
+    max-width: 100%; /* Chiếm hết chiều ngang điện thoại */
+    height: calc(100vh - 65px); /* Trừ đi chiều cao của bottom bar */
+    padding: 15px;
+    gap: 10px;
+  }
+
+  /* Thu nhỏ thumbnail một chút để dành chỗ cho Playlist */
+  .thumbnail {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Điều chỉnh font chữ cho khớp màn hình nhỏ */
+  .song-title {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Playlist trên mobile nên chiếm nhiều không gian hơn để dễ vuốt */
+  .footer {
+    padding: 10px;
+    border-radius: 15px 15px 0 0; /* Bo góc trên tạo cảm giác hiện đại */
+    background: rgba(0, 0, 0, 0.2); /* Tạo nền mờ cho danh sách */
+  }
+
+  .song-item {
+    padding: 8px; /* Thu nhỏ khoảng cách để hiện được nhiều bài hơn */
+  }
+
+  /* Các nút điều khiển cần to hơn một chút để dễ bấm bằng ngón tay (UX Mobile) */
+  .song-controller button {
+    width: 45px;
+    height: 45px;
+  }
+}
