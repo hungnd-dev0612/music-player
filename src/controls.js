@@ -99,7 +99,7 @@ export function initControls() {
       .map(
         (song, index) =>
           `
-    <li class="song-item ${index === 0 ? "active" : ""}">
+    <li class="song-item ${index === 0 ? "active" : ""}" data-id="${index}">
       <div class="song-thumb">
         <img src="${song.avatar}" >
       </div>
@@ -126,10 +126,9 @@ export function initControls() {
     return songName;
   }
 
-  function loadSongAndPlay(song) {
+  function loadSongAndPlay() {
     loadSongInfo(currentIndex);
     onCanPlayThrough();
-    return song;
   }
 
   function togglePlayPauseBtn() {
@@ -173,10 +172,10 @@ export function initControls() {
     } else {
       currentIndex--;
     }
-    loadSongAndPlay(currentIndex);
+    loadSongAndPlay();
   }
 
-  function songItem(){
+  function songItem() {
     console.dir(songItemBtn);
   }
   // -------------------change background------------------
@@ -213,6 +212,14 @@ export function initControls() {
   progressBar.addEventListener("input", () => {
     const seekTime = (progressBar.value / 100) * player.duration;
     player.currentTime = seekTime;
+  });
+
+  // --------------list song click--------------
+  listSong.addEventListener("click", (event) => {
+    const nodeSong = event.target.closest(".song-item");
+    currentIndex = nodeSong.dataset.id;
+    console.log(currentIndex);
+    loadSongAndPlay()
   });
 
   muteBtn.addEventListener("click", (e) => {
